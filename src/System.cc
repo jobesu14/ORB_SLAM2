@@ -346,7 +346,10 @@ void System::Shutdown()
     if(mpViewer)
         pangolin::BindToContext("ORB-SLAM2: Map Viewer");
     if (is_save_map)
-        SaveMap(mapfile);
+    {
+        SaveMap(mapfile + ".bin");
+        SavePointcloud(mapfile + ".pcd");
+    }
 }
 
 void System::SaveTrajectoryTUM(const string &filename)
@@ -534,6 +537,7 @@ void System::SaveMap(const string &filename)
     cout << " ...done" << std::endl;
     out.close();
 }
+
 bool System::LoadMap(const string &filename)
 {
     std::ifstream in(filename, std::ios_base::binary);
@@ -561,6 +565,14 @@ bool System::LoadMap(const string &filename)
     cout << " ...done" << endl;
     in.close();
     return true;
+}
+
+void System::SavePointcloud(const string &filename)
+{
+    if(mpMap != nullptr)
+    {
+        PcdWriter::save(filename, mpMap);
+    }
 }
 
 } //namespace ORB_SLAM

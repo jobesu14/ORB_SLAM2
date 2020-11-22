@@ -35,6 +35,7 @@
 #include "KeyFrameDatabase.h"
 #include "ORBVocabulary.h"
 #include "Viewer.h"
+#include "PcdWriter.h"
 
 #include "BoostArchiver.h"
 // for map file io
@@ -125,6 +126,7 @@ private:
     // Save/Load functions
     void SaveMap(const string &filename);
     bool LoadMap(const string &filename);
+    void SavePointcloud(const string &filename);
 
 private:
 
