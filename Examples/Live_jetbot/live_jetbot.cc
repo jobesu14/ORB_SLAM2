@@ -3,6 +3,7 @@
 #include<fstream>
 #include<chrono>
 #include<iomanip>
+#include <signal.h>
 
 #include<opencv2/core/core.hpp>
 #ifdef OPENCV4
@@ -12,6 +13,8 @@
 #include"System.h"
 
 using namespace std;
+
+bool exitLoop = false;
 
 int main(int argc, char **argv)
 {
@@ -44,10 +47,13 @@ int main(int argc, char **argv)
         return 2;
     }
 
+    // cath properly Ctl-C to end properly the process.
+    signal(SIGINT, [](int signum) { exitLoop = true; });
+
     // Main loop
     cv::Mat cvImg;
     int imageNo = 0;
-    while(imageNo < 500)
+    while(!exitLoop)
     {
         videoCapture >> cvImg;
 
@@ -56,12 +62,9 @@ int main(int argc, char **argv)
         }
         
         // Pass the image to the SLAM system
-        //if(imageNo % 2 == 0)
-        {
-            double tframe = 0.03333 * imageNo; // TODO proper frame time.
-            SLAM.TrackMonocular(cvImg, tframe); //, imageProcessedNo);
-            imageNo++;
-        }
+        double tframe = 0.03333 * imageNo; // TODO proper frame time.
+        SLAM.TrackMonocular(cvImg, tframe); //, imageProcessedNo);
+        imageNo++;
     }
 
     videoCapture.release();
