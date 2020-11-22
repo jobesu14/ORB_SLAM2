@@ -18,14 +18,23 @@ bool exitLoop = false;
 
 int main(int argc, char **argv)
 {
-    if(argc != 3)
+    bool mapMgmtEnabled = false;
+    string mapFile;
+
+    if(argc < 3)
     {
         cerr << endl << "Usage: ./livejetbot path_to_vocabulary path_to_settings" << endl;
         return 1;
     }
+    else if(argc == 4) // map filename
+    {
+        mapMgmtEnabled = true;
+        mapFile = argv[3];
+    }
 
     // Create SLAM system. It initializes all system threads and gets ready to process frames.
-    ORB_SLAM2::System SLAM(argv[1], argv[2], ORB_SLAM2::System::MONOCULAR, true, true);
+    ORB_SLAM2::System SLAM(argv[1], argv[2], ORB_SLAM2::System::MONOCULAR,
+                            true, mapMgmtEnabled, mapFile);
 
     string gstreamPipeline =
         "udpsrc port=5001 !"

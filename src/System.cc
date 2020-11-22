@@ -36,8 +36,14 @@ namespace ORB_SLAM2
 {
 
 System::System(const string &strVocFile, const string &strSettingsFile, const eSensor sensor,
-               const bool bUseViewer, bool is_save_map_):mSensor(sensor), is_save_map(is_save_map_), mpViewer(static_cast<Viewer*>(NULL)), mbReset(false),
-        mbActivateLocalizationMode(false), mbDeactivateLocalizationMode(false)
+               const bool bUseViewer, const bool is_save_map_, const string &mapfile_)
+    : mSensor(sensor)
+    , is_save_map(is_save_map_)
+    , mapfile(mapfile_)
+    , mpViewer(static_cast<Viewer*>(NULL))
+    , mbReset(false)
+    , mbActivateLocalizationMode(false)
+    , mbDeactivateLocalizationMode(false)
 {
     // Output welcome message
     cout << endl <<
@@ -63,13 +69,6 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
        exit(-1);
     }
 
-    cv::FileNode mapfilen = fsSettings["Map.mapfile"];
-    bool bReuseMap = false;
-    if (!mapfilen.empty())
-    {
-        mapfile = (string)mapfilen;
-    }
-
     //Load ORB Vocabulary
     cout << endl << "Loading ORB Vocabulary. This could take a while..." << endl;
 
@@ -92,6 +91,7 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
 
     //Create KeyFrame Database
     //Create the Map
+    bool bReuseMap = false;
     if (!mapfile.empty() && LoadMap(mapfile))
     {
         bReuseMap = true;
@@ -325,7 +325,7 @@ void System::Reset()
 
 void System::Shutdown()
 {
-    cout << "Shutting down: " << is_save_map << " -> " << mapfile << endl; 
+    cout << "Shutting down process." << endl; 
 
     mpLocalMapper->RequestFinish();
     mpLoopCloser->RequestFinish();

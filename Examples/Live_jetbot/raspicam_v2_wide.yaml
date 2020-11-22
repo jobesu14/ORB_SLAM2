@@ -60,8 +60,3 @@ Viewer.ViewpointX: 0
 Viewer.ViewpointY: -10
 Viewer.ViewpointZ: -0.1
 Viewer.ViewpointF: 2000
-
-#--------------------------------------------------------------------------------------------
-# Map Parapeters
-#--------------------------------------------------------------------------------------------
-Map.mapfile: maps/test_map.bin
