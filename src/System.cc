@@ -325,6 +325,8 @@ void System::Reset()
 
 void System::Shutdown()
 {
+    cout << "Shutting down: " << is_save_map << " -> " << mapfile << endl; 
+
     mpLocalMapper->RequestFinish();
     mpLoopCloser->RequestFinish();
     if(mpViewer)

@@ -732,7 +732,7 @@ void KeyFrame::serialize(Archive &ar, const unsigned int version)
     // mpORBvocabulary restore elsewhere(see SetORBvocab)
     {
         // Grid related
-        unique_lock<mutex> lock_connection(mMutexConnections);
+        //unique_lock<mutex> lock_connection(mMutexConnections);
         ar & mGrid & mConnectedKeyFrameWeights & mvpOrderedConnectedKeyFrames & mvOrderedWeights;
         // Spanning Tree and Loop Edges
         ar & mbFirstConnection & mpParent & mspChildrens & mspLoopEdges;

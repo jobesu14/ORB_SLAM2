@@ -314,7 +314,7 @@ void KeyFrameDatabase::serialize(Archive &ar, const unsigned int version)
     // don't save associated vocabulary, KFDB restore by created explicitly from a new ORBvocabulary instance
     // inverted file
     {
-        unique_lock<mutex> lock_InvertedFile(mMutex);
+        //unique_lock<mutex> lock_InvertedFile(mMutex);
         ar & mvInvertedFile;
     }
     // don't save mutex

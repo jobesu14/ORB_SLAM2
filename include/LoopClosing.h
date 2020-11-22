@@ -45,7 +45,7 @@ class LoopClosing
 {
 public:
 
-    typedef pair<set<KeyFrame*>,int> ConsistentGroup;    
+    typedef pair<set<KeyFrame*>,int> ConsistentGroup;
     typedef map<KeyFrame*,g2o::Sim3,std::less<KeyFrame*> > KeyFrameAndPose;
 
 public:

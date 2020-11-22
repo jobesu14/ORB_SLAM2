@@ -134,3 +134,9 @@ if(USE_EXAMPLE_WEBCAM)
     target_include_directories(mono_android_ipcam_ar PUBLIC Examples/AR/)
     target_link_libraries(mono_android_ipcam_ar ${PROJECT_NAME} ${CURL_LIBRARIES})
 endif()
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Live_jetbot)
+
+add_executable(live_jetbot
+Examples/Live_jetbot/live_jetbot.cc)
+target_link_libraries(live_jetbot ${PROJECT_NAME})
